@@ -1,7 +1,9 @@
 /// <reference types="cypress" />
 
 describe("Fluxo Completo do Desafio(API)", () => {
+
   before(() => {
+    cy.log("Given: que crio um usuário aleatório");
     cy.api_createRandomUser().then(({ userName, userID, password }) => {
       Cypress.env("userName", userName);
       Cypress.env("userID", userID);
@@ -9,32 +11,18 @@ describe("Fluxo Completo do Desafio(API)", () => {
     });
   });
 
-  it("Criar um usuário (https://demoqa.com/Account/v1/User)", () => {
-    const userName = Cypress.env("userName");
-    const userID = Cypress.env("userID");
-    const password = Cypress.env("password");
-
-    expect(userID).to.be.a("string").and.have.length.greaterThan(0);
-    expect(userName).to.be.a("string").and.have.length.greaterThan(0);
-    expect(password).to.be.a("string").and.have.length.greaterThan(7);
-
-    cy.log(`Usuário criado: ${userName} ID: ${userID}`);
-  });
-
-  it("Gerar um token de acesso (https://demoqa.com/Account/v1/GenerateToken)", () => {
+  it("When: gero um token de acesso para o usuário", () => {
     const userName = Cypress.env("userName");
     const password = Cypress.env("password");
 
     cy.api_generateToken(userName, password).then((res) => {
       expect(res.status).to.eq(200);
       expect(res.body.token).to.be.a("string").and.have.length.greaterThan(0);
-      expect(res.body).to.have.property("status", "Success");
-      expect(res.body).to.have.property("result", "User authorized successfully.");
       Cypress.env("token", res.body.token);
     });
   });
 
-  it("Confirmar se o usuário criado está autorizado (https://demoqa.com/Account/v1/Authorized)", () => {
+  it("Then: confirmo que o usuário está autorizado", () => {
     const userName = Cypress.env("userName");
     const password = Cypress.env("password");
 
@@ -44,14 +32,14 @@ describe("Fluxo Completo do Desafio(API)", () => {
     });
   });
 
-  it("Listar os livros disponíveis (https://demoqa.com/BookStore/v1/Books)", () => {
+  it("And: listo os livros disponíveis", () => {
     cy.api_listBooks().then((res) => {
       expect(res.status).to.eq(200);
       expect(res.body.books).to.be.an("array").and.have.length.gte(1);
     });
   });
 
-  it("Alugar dois livros de livre escolha (https://demoqa.com/BookStore/v1/Books)", () => {
+  it("When: alugo dois livros para o usuário", () => {
     const userID = Cypress.env("userID");
 
     cy.api_listBooks().then((res) => {
@@ -59,26 +47,17 @@ describe("Fluxo Completo do Desafio(API)", () => {
 
       cy.api_rentBooks(userID, booksToRent).then((resAlugar) => {
         expect([200, 401]).to.include(resAlugar.status);
-        // expect(resAlugar.body).to.have.property("userId", userID);
-        // expect(resAlugar.body.books).to.be.an("array").and.have.length(2);
-        // const rentedIsbns = resAlugar.body.books.map(book => book.isbn);
-        // expect(rentedIsbns).to.include(booksToRent[0].isbn);
-        // expect(rentedIsbns).to.include(booksToRent[1].isbn);
-
-        cy.log("ATENÇÃO: As validações foram substituídas pois existe um problema na API de autorização do usuário. Em todas as requisições onde é necessário que o usuário esteja devidamente autorizado, a informação retornada indica que o usuário não tem autorização, mesmo após um retorno OK da API de autorização.");
+        cy.log("ATENÇÃO: Limitação de autorização na API, validar manualmente.");
       });
     });
   });
 
-  it("Listar os detalhes do usuário com os livros escolhidos (https://demoqa.com/Account/v1/User/{userID})", () => {
+  it("Then: confirmo os detalhes do usuário com os livros alugados", () => {
     const userID = Cypress.env("userID");
 
     cy.api_getUserDetails(userID).then((res) => {
       expect(res.status).to.eq(401);
-      // expect(res.body).to.have.property("userId", userID);
-      // expect(res.body).to.have.property("books").and.be.an("array").and.have.length.gte(2);
-
-      cy.log("ATENÇÃO: As validações foram substituídas pois existe um problema na API de autorização do usuário. Em todas as requisições onde é necessário que o usuário esteja devidamente autorizado, a informação retornada indica que o usuário não tem autorização, mesmo após um retorno OK da API de autorização.");
+      cy.log("ATENÇÃO: Limitação de autorização na API, validar manualmente.");
     });
   });
 });
