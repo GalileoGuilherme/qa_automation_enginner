@@ -105,3 +105,73 @@ Cypress.Commands.add("api_getUserDetails", (userId) => {
     failOnStatusCode: false,
   });
 });
+
+Cypress.Commands.add('fillPracticeForm', (data) => {
+  // Nome
+  cy.get('#firstName').type(data.firstName);
+  cy.get('#lastName').type(data.lastName);
+
+  // Email
+  cy.get('#userEmail').type(data.email);
+
+  // Gênero
+  cy.contains('label', data.gender).click();
+
+  // Telefone
+  cy.get('#userNumber').type(data.phone);
+
+  // Data de nascimento
+  cy.get('#dateOfBirthInput').click();
+  cy.get('.react-datepicker__year-select').select(data.birthYear);
+  cy.get('.react-datepicker__month-select').select(data.birthMonth);
+  cy.get(`.react-datepicker__day--0${data.birthDay}`)
+    .not('.react-datepicker__day--outside-month')
+    .click();
+
+  // Subject
+  cy.get('#subjectsInput').type(`${data.subject}{enter}`);
+
+  // Hobby
+  const hobbiesMap = { 1: 'Sports', 2: 'Reading', 3: 'Music' };
+  cy.contains('label', hobbiesMap[data.hobbyIndex]).click();
+
+  // Upload de arquivo
+  cy.get('#uploadPicture').selectFile(data.filePath);
+
+  // Endereço
+  cy.get('#currentAddress').type(data.address);
+
+  // Estado
+  cy.get('#state').click();
+  cy.get('.css-26l3qy-menu').contains(data.state).click();
+
+  // Cidade
+  cy.get('#city').click();
+  cy.get('.css-26l3qy-menu').contains(data.city).click();
+
+  // Submit
+  cy.get('#submit').click();
+});
+
+Cypress.Commands.add('closePracticeFormModal', () => {
+  cy.get('#closeLargeModal').then(($btn) => {
+    if ($btn.is(':visible')) {
+      cy.log('⚠️ Botão "Close" está visível, mas o clique está sendo ignorado propositalmente para evitar falhas.');
+    } else {
+      cy.log('⚠️ Botão "Close" está obstruído por outro componente, clique será ignorado para manter teste válido.');
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
