@@ -113,7 +113,10 @@ Cypress.Commands.add('fillPracticeForm', (data) => {
   // Digita email com delay para minimizar falha por script do DemoQA
   cy.get('#userEmail').should('be.visible').type(data.email, { delay: 80 });
 
-  cy.get('#genterWrapper > .col-md-9 > :nth-child(3)').should('be.visible').check({ force: true });
+  // Gender
+  cy.contains('.custom-control-label', data.gender).click({ force: true });
+
+
   cy.get('#userNumber').should('be.visible').type(data.phone);
 
   cy.get('#dateOfBirthInput').click();
