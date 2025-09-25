@@ -105,3 +105,32 @@ Cypress.Commands.add("api_getUserDetails", (userId) => {
     failOnStatusCode: false,
   });
 });
+
+Cypress.Commands.add('fillPracticeForm', (data) => {
+  cy.get('#firstName').should('be.visible').type(data.firstName);
+  cy.get('#lastName').should('be.visible').type(data.lastName);
+
+  // Digita email com delay para minimizar falha por script do DemoQA
+  cy.get('#userEmail').should('be.visible').type(data.email, { delay: 80 });
+
+  cy.get('#genterWrapper > .col-md-9 > :nth-child(3)').should('be.visible').check({ force: true });
+  cy.get('#userNumber').should('be.visible').type(data.phone);
+
+  cy.get('#dateOfBirthInput').click();
+  cy.get('.react-datepicker__year-select').select(data.birthYear);
+  cy.get('.react-datepicker__month-select').select(data.birthMonth);
+  cy.get(`.react-datepicker__day--0${data.birthDay}`).not('.react-datepicker__day--outside-month').click();
+  cy.get('#subjectsInput').click();
+
+  cy.get('#subjectsInput').type(`${data.subject}{enter}`);
+  cy.get(`#hobbies-checkbox-${data.hobbyIndex}`).parent().click();
+  cy.get('#uploadPicture').selectFile(data.filePath);
+  cy.get('#currentAddress').type(data.address);
+  cy.get('#state').click();
+  cy.contains('.css-26l3qy-menu', data.state).click();
+  cy.get('#city').click();
+  cy.contains('.css-26l3qy-menu', data.city).click();
+});
+
+
+
