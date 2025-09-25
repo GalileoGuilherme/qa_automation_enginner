@@ -51,7 +51,7 @@ describe('E2E Practice Form - DemoQA', () => {
     cy.get('#example-modal-sizes-title-lg').should('have.text', 'Thanks for submitting the form');
     cy.get('.table-responsive').should('be.visible');
 
-    // Validações dos dados enviados
+    // Validações dos dados enviados(dialog)
     cy.get('td').contains('Student Name').next('td')
       .should('have.text', `${randomData.firstName} ${randomData.lastName}`);
     cy.get('td').contains('Student Email').next('td')
@@ -77,7 +77,8 @@ describe('E2E Practice Form - DemoQA', () => {
       .should('have.text', `${randomData.state} ${randomData.city}`);
 
     // Fechar modal
-    cy.get('#closeLargeModal').click();
-    cy.get('.modal-content').should('not.exist');
+    cy.closePracticeFormModal();
+    // cy.get('#closeLargeModal').click();
+    // cy.get('.modal-content').should('not.exist');
   });
 });

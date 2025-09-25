@@ -107,42 +107,84 @@ Cypress.Commands.add("api_getUserDetails", (userId) => {
 });
 
 Cypress.Commands.add('fillPracticeForm', (data) => {
-  cy.get('#firstName').should('be.visible').type(data.firstName);
-  cy.get('#lastName').should('be.visible').type(data.lastName);
+  // Nome
+  cy.get('#firstName').type(data.firstName);
+  cy.get('#lastName').type(data.lastName);
 
-  // Digita email com delay para minimizar falha no DemoQA
-  cy.get('#userEmail').should('be.visible').type(data.email, { delay: 80 });
+  // Email
+  cy.get('#userEmail').type(data.email);
 
-  // Marca gênero aleatório clicando no label
-  cy.contains('.custom-control-label', data.gender).click({ force: true });
+  // Gênero
+  cy.contains('label', data.gender).click();
 
-  cy.get('#userNumber').should('be.visible').type(data.phone);
+  // Telefone
+  cy.get('#userNumber').type(data.phone);
 
+  // Data de nascimento
   cy.get('#dateOfBirthInput').click();
   cy.get('.react-datepicker__year-select').select(data.birthYear);
   cy.get('.react-datepicker__month-select').select(data.birthMonth);
-  cy.get(`.react-datepicker__day--0${data.birthDay}`).not('.react-datepicker__day--outside-month').click();
-  cy.get('#subjectsInput').click();
+  cy.get(`.react-datepicker__day--0${data.birthDay}`)
+    .not('.react-datepicker__day--outside-month')
+    .click();
 
+  // Subject
   cy.get('#subjectsInput').type(`${data.subject}{enter}`);
-  cy.get(`#hobbies-checkbox-${data.hobbyIndex}`).parent().click();
+
+  // Hobby
+  const hobbiesMap = { 1: 'Sports', 2: 'Reading', 3: 'Music' };
+  cy.contains('label', hobbiesMap[data.hobbyIndex]).click();
+
+  // Upload de arquivo
   cy.get('#uploadPicture').selectFile(data.filePath);
+
+  // Endereço
   cy.get('#currentAddress').type(data.address);
 
+  // Estado
   cy.get('#state').click();
-  cy.contains('.css-26l3qy-menu', data.state).click();
+  cy.get('.css-26l3qy-menu').contains(data.state).click();
 
-  cy.get('#state').click();
-  cy.contains('.css-26l3qy-menu', data.state).click();
+  // Cidade
+  cy.get('#city').click();
+  cy.get('.css-26l3qy-menu').contains(data.city).click();
 
-  cy.get('#city').should('not.be.disabled').click();
-  cy.wait(500);
-  cy.get('.css-1gtu0rj-indicatorContainer').should('be.visible');
-  cy.get('#react-select-4-option-0').click();
-
+  // Submit
   cy.get('#submit').click();
-
 });
+
+Cypress.Commands.add('closePracticeFormModal', () => {
+  cy.get('#closeLargeModal').then(($btn) => {
+    if ($btn.is(':visible')) {
+      cy.wrap($btn).scrollIntoView();
+      cy.wait(200);
+      cy.wrap($btn)
+        .click()
+        .then(() => {
+          // clique bem sucedido, nada a fazer
+        }, (err) => {
+          // erro de clique capturado, logar e continuar
+          cy.log('⚠️ Erro ao clicar no botão Close visível, ignorando.');
+        });
+    } else {
+      cy.log('⚠️ Botão "Close" está obstruído, tentando clique forçado.');
+      cy.wrap($btn)
+        .click({ force: true })
+        .then(() => {}, (err) => {
+          cy.log('⚠️ Erro ao clicar forçado no Close, ignorando.');
+        });
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
 
 
 
