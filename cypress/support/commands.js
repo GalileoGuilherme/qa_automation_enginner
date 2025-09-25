@@ -16,7 +16,6 @@ function generateSecurePassword() {
     getRandomChar(special),
   ];
 
-  // Completa com caracteres aleatórios de todas as categorias até 10 caracteres
   const allChars = upper + lower + numbers + special;
   while (passwordChars.length < 10) {
     passwordChars.push(getRandomChar(allChars));
@@ -28,15 +27,11 @@ function generateSecurePassword() {
   }
   return passwordChars.join('');
 }
-function generateRandomPassword() {
-  return generateSecurePassword();
-}
 
 Cypress.Commands.add("api_createRandomUser", () => {
   const randomNum = Math.floor(Math.random() * 100000);
   const randomUserName = `user${randomNum}`;
-  const password = generateRandomPassword();
-//   cy.log(`Criando usuário: ${randomUserName} com senha: ${password}`);
+  const password = generateSecurePassword();
 
   return cy.api({
     method: "POST",
@@ -53,9 +48,8 @@ Cypress.Commands.add("api_createRandomUser", () => {
         userID: res.body.userID,
         password
       };
-    } else {
-      throw new Error(`Falha ao criar usuário: ${JSON.stringify(res.body)}`);
     }
+    throw new Error(`Falha ao criar usuário: ${JSON.stringify(res.body)}`);
   });
 });
 
@@ -96,14 +90,6 @@ Cypress.Commands.add("api_rentBooks", (userId, collectionOfIsbns) => {
   });
 });
 
-Cypress.Commands.add("api_getUserDetails", (userId) => {
-  return cy.api({
-    method: "GET",
-    url: `/Account/v1/User/${userId}`,
-    failOnStatusCode: false
-  });
-});
-
 Cypress.Commands.add("api_deleteUser", (userId) => {
   return cy.api({
     method: "DELETE",
@@ -112,10 +98,10 @@ Cypress.Commands.add("api_deleteUser", (userId) => {
   });
 });
 
-Cypress.Commands.add("api_listUsers", () => {
+Cypress.Commands.add("api_getUserDetails", (userId) => {
   return cy.api({
     method: "GET",
-    url: "/Account/v1/Users",
-    failOnStatusCode: false
+    url: `/Account/v1/User/${userId}`,
+    failOnStatusCode: false,
   });
 });
