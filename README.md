@@ -16,9 +16,9 @@ Siga estes passos para clonar e executar o projeto na sua máquina local para de
 
 Para instalar e preparar o ambiente:
 
-git clone https://github.com/GalileoGuilherme/qa_automation_enginner.git
-cd qa_automation_engineer
-npm install
+ - git clone https://github.com/GalileoGuilherme/qa_automation_enginner.git
+ - cd qa_automation_engineer
+ - npm install
 
 ## ⚙️ Executando os testes
 
@@ -26,14 +26,14 @@ Há scripts prontos para rodar os testes de maneira manual e automatizada:
 
 - Para executar todos os testes (incluindo frontend e API):
 
-npm run test:all
+ - npm run test:all
 
 
 Esse comando vai executar todos os specs, gerar os relatórios .json e logo em seguida consolidar e gerar o relatório HTML final.
 
 - Para gerar apenas o relatório (se já houver testes executados):
 
-npm run report
+ - npm run report
 
 
 Os relatórios ficam salvos na pasta `mochawesome-report/` e podem ser abertos em qualquer navegador. Exemplo: `mochawesome-report/mochawesome.html`.
@@ -59,13 +59,13 @@ Principais bibliotecas utilizadas:
 - [mochawesome-report-generator](https://www.npmjs.com/package/mochawesome-report-generator) ^6.3.0
 - [@faker-js/faker](https://www.npmjs.com/package/@faker-js/faker) ^9.9.0
 
-## ✒️ Autores
+## ✒️ Autor
 
 - **Galileo Guilherme** - *Estruturação do projeto* - [seulink](https://github.com/GalileoGuilherme)
 
 ## 📄 Licença
 
-Este projeto está sob licença MIT. Veja [LICENSE.md](./LICENSE.md) para detalhes.
+Este projeto está sob licença MIT.
 
 ## 🎁 Agradecimentos & Comunidade
 
@@ -75,4 +75,4 @@ Este projeto está sob licença MIT. Veja [LICENSE.md](./LICENSE.md) para detalh
 
 ---
 
-⌨️ Desenvolvido com ❤️ usando Cypress por Galileo Guilherme
+⌨️ Desenvolvido usando Cypress por Galileo Guilherme!
