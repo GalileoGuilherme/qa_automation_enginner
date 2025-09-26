@@ -81,7 +81,7 @@ O workflow executa:
 
 ## ✒️ Autor
 
-- **Galileo Guilherme** - *Estruturação do projeto* - [seulink](https://github.com/GalileoGuilherme)
+- **Galileo Guilherme** - *QA Engineer | Test Automation (Cypress, Playwright, Postman, Selenium) | API & Web Testing | Agile | iGaming | DevOps Mindset* - [Linkedin](https://www.linkedin.com/in/galileo-guilherme-01996693/)
 
 ## 📄 Licença
 
