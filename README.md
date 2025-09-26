@@ -1,61 +1,78 @@
-# qa_automation_enginner
+# QA Automation Engineer - Cypress Suite
 
-Testes API DemoQA com Cypress
-Este projeto contém testes automatizados usando Cypress para validar o fluxo de criação de usuários, autenticação, autorização e aluguel de livros na API do DemoQA.
+Este projeto contém uma suíte completa de testes automatizados para aplicações web e APIs, utilizando o Cypress, Mochawesome e outras ferramentas modernas do ecossistema JavaScript para garantir qualidade em pipelines, integrações contínuas e entregas confiáveis.
 
-Fluxo coberto pelos testes
-Criar usuário aleatório com senha segura
+## 🚀 Começando
 
-Gerar token de acesso para o usuário
+Siga estes passos para clonar e executar o projeto na sua máquina local para desenvolvimento, execução dos testes e geração dos relatórios.
 
-Confirmar autorização do usuário
+## 📋 Pré-requisitos
 
-Listar livros disponíveis na livraria
+- Node.js v16 ou superior
+- npm (preferencialmente versão 7+)
+- Git
 
-Alugar dois livros para o usuário
+## 🔧 Instalação
 
-Consultar detalhes do usuário garantindo livros alugados
+Para instalar e preparar o ambiente:
 
-Como rodar os testes
-Requisitos
-Node.js instalado
+git clone https://github.com/GalileoGuilherme/qa_automation_enginner.git
+cd qa_automation_engineer
+npm install
 
-Cypress instalado nas dependências do projeto
+## ⚙️ Executando os testes
 
-Comandos principais
-Abra interface interativa do Cypress:
+Há scripts prontos para rodar os testes de maneira manual e automatizada:
 
-npx cypress open
+- Para executar todos os testes (incluindo frontend e API):
 
-Executar todos os testes no modo headless:
+npm run test:all
 
-npx cypress run
 
-Estrutura dos comandos personalizados (cypress/support/commands.js)
-api_createRandomUser - cria usuário aleatório com senha segura
+Esse comando vai executar todos os specs, gerar os relatórios .json e logo em seguida consolidar e gerar o relatório HTML final.
 
-api_generateToken - gera token JWT para autenticação
+- Para gerar apenas o relatório (se já houver testes executados):
 
-api_checkAuthorized - valida se o usuário está autorizado
+npm run report
 
-api_listBooks - retorna a lista de livros disponíveis
 
-api_rentBooks - aluga livros para o usuário
+Os relatórios ficam salvos na pasta `mochawesome-report/` e podem ser abertos em qualquer navegador. Exemplo: `mochawesome-report/mochawesome.html`.
 
-api_getUserDetails - consulta detalhes do usuário incluindo livros alugados
+## 📂 Estrutura do Projeto
 
-api_deleteUser - deleta o usuário criado (usado na limpeza dos testes)
+- `/e2e/api`: testes automatizados de API
+- `/e2e/frontend`: testes automatizados da interface web
+- `/fixtures`: arquivos de dados mockados, imagens, etc
+- `/support`: comandos customizados e variáveis globais
+- `/mochawesome-report`: pasta dos relatórios gerados
+- `cypress.config.js`: configurações do Cypress e reporters
 
-Observações importantes
-Existe um problema conhecido na API de autorização, onde algumas requisições indicam falta de autorização mesmo após retorno positivo no login.
-Para lidar com isso, alguns testes possuem cy.log explicando essa limitação e adaptações nas validações.
-O fluxo de criação e limpeza do usuário é feito com hooks para garantir testes independentes e ambiente limpo.
+## 🧩 Ferramentas e Dependências
 
-Melhorias futuras
-Adicionar validações de esquema JSON completas
+Principais bibliotecas utilizadas:
 
-Integrar com pipelines CI/CD para execução automática
+- [Cypress](https://www.cypress.io/) ^15.3.0
+- [Mochawesome](https://www.npmjs.com/package/mochawesome) ^7.1.4
+- [cypress-multi-reporters](https://www.npmjs.com/package/cypress-multi-reporters) ^2.0.5
+- [cypress-plugin-api](https://www.npmjs.com/package/cypress-plugin-api) ^2.11.2
+- [mochawesome-merge](https://www.npmjs.com/package/mochawesome-merge) ^5.0.0
+- [mochawesome-report-generator](https://www.npmjs.com/package/mochawesome-report-generator) ^6.3.0
+- [@faker-js/faker](https://www.npmjs.com/package/@faker-js/faker) ^9.9.0
 
-Implementar mocks/fixtures para casos mais isolados
+## ✒️ Autores
 
-Documentar melhor os comandos customizados
+- **Galileo Guilherme** - *Estruturação do projeto* - [seulink](https://github.com/GalileoGuilherme)
+
+## 📄 Licença
+
+Este projeto está sob licença MIT. Veja [LICENSE.md](./LICENSE.md) para detalhes.
+
+## 🎁 Agradecimentos & Comunidade
+
+- Compartilhe este projeto 📢
+- Indique para colegas desenvolvedores e QAs 🧑‍💻
+- Contribua, abra PRs e issues sempre que quiser colaborar!
+
+---
+
+⌨️ Desenvolvido com ❤️ usando Cypress por Galileo Guilherme

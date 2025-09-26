@@ -9,5 +9,10 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.9.0"
+  },
+  "scripts": {
+    "test": "cypress run",
+    "report": "npx mochawesome-merge mochawesome-report/*.json > mochawesome.json && npx marge mochawesome.json",
+    "test:all": "cypress run && npx mochawesome-merge mochawesome-report/*.json > mochawesome.json && npx marge mochawesome.json"
   }
 }
