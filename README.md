@@ -33,8 +33,15 @@ Esse comando vai executar todos os specs, gerar os relatórios .json e logo em s
 
 - Para gerar apenas o relatório (se já houver testes executados):
 
- - npm run report
+npm run report
 
+- Para rodar somente os testes de API:
+
+npm run test:api
+
+- Para rodar somente os testes de frontend:
+
+npm run test:frontend
 
 Os relatórios ficam salvos na pasta `mochawesome-report/` e podem ser abertos em qualquer navegador. Exemplo: `mochawesome-report/mochawesome.html`.
 
@@ -46,6 +53,7 @@ Os relatórios ficam salvos na pasta `mochawesome-report/` e podem ser abertos e
 - `/support`: comandos customizados e variáveis globais
 - `/mochawesome-report`: pasta dos relatórios gerados
 - `cypress.config.js`: configurações do Cypress e reporters
+- `.github/workflows/cypress.yml`: configuração da integração contínua via GitHub Actions
 
 ## 🧩 Ferramentas e Dependências
 
@@ -58,6 +66,18 @@ Principais bibliotecas utilizadas:
 - [mochawesome-merge](https://www.npmjs.com/package/mochawesome-merge) ^5.0.0
 - [mochawesome-report-generator](https://www.npmjs.com/package/mochawesome-report-generator) ^6.3.0
 - [@faker-js/faker](https://www.npmjs.com/package/@faker-js/faker) ^9.9.0
+- [dotenv](https://www.npmjs.com/package/dotenv) ^17.2.2
+
+## 📌 Integração Contínua - GitHub Actions
+
+O projeto possui pipeline de CI configurada para rodar automaticamente em commits nas branches `main` e `dev`. A configuração do workflow está em `.github/workflows/cypress.yml`.
+
+O workflow executa:
+
+- Checkout do código
+- Instalação das dependências via `npm ci`
+- Execução dos testes com `npm run test:all`
+- Upload do relatório mochawesome como artefato para análise
 
 ## ✒️ Autor
 
