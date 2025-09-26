@@ -3,6 +3,7 @@
     "cypress": "^15.3.0",
     "cypress-multi-reporters": "^2.0.5",
     "cypress-plugin-api": "^2.11.2",
+    "dotenv": "^17.2.2",
     "mochawesome": "^7.1.4",
     "mochawesome-merge": "^5.0.0",
     "mochawesome-report-generator": "^6.3.0"
@@ -12,7 +13,10 @@
   },
   "scripts": {
     "test": "cypress run",
-    "report": "npx mochawesome-merge mochawesome-report/*.json > mochawesome.json && npx marge mochawesome.json",
-    "test:all": "cypress run && npx mochawesome-merge mochawesome-report/*.json > mochawesome.json && npx marge mochawesome.json"
+    "test:api": "cypress run --spec cypress/e2e/api/**/*.cy.js && npx mochawesome-merge mochawesome-report/*.json > mochawesome-api.json && npx marge mochawesome-api.json",
+    "test:frontend": "cypress run --spec cypress/e2e/frontend/**/*.cy.js && npx mochawesome-merge mochawesome-report/*.json > mochawesome-frontend.json && npx marge mochawesome-frontend.json",
+    "test:all": "cypress run && npx mochawesome-merge mochawesome-report/*.json > mochawesome.json && npx marge mochawesome.json",
+    "test:all:local-windows": "powershell -Command \"$env:CYPRESS_BASE_URL='https://demoqa.com'; npm run test:all\"",
+    "test:all:local-unix": "CYPRESS_BASE_URL=https://demoqa.com npm run test:all"
   }
 }
