@@ -156,7 +156,7 @@ Cypress.Commands.add('fillPracticeForm', (data) => {
 Cypress.Commands.add('closePracticeFormModal', () => {
   cy.get('#closeLargeModal').then(($btn) => {
     if ($btn.is(':visible')) {
-      cy.log('⚠️ Botão "Close" está visível, mas o clique está sendo ignorado propositalmente para evitar falhas.');
+      cy.log('⚠️ Botão "Close" está visível, mas o clique está sendo ignorado propositalmente para evitar falhas(existe um componente "adplus-anchor" indevidamente sobrepondo o btn).');
     } else {
       cy.log('⚠️ Botão "Close" está obstruído por outro componente, clique será ignorado para manter teste válido.');
     }

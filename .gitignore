@@ -1,1 +1,14 @@
+# Relatórios Mochawesome
+mochawesome-report/
+
+# Arquivos JSON gerados pelo Mochawesome
+mochawesome.json
+
+# Diretórios e arquivos comuns de Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Node modules
 node_modules/
+package-lock.json
+yarn.lock
