@@ -1,13 +1,14 @@
 import { faker } from '@faker-js/faker';
 
 describe('E2E Practice Form', () => {
+
   it('Executa fluxo completo do Practice Form', () => {
     // Ignora erros não tratados para não falhar o teste por problemas externos
     Cypress.on('uncaught:exception', () => false);
 
     // Passo 1: visita a home, checando URL e elementos básicos
-    cy.visit('https://demoqa.com/');
-    cy.url().should('eq', 'https://demoqa.com/');
+    cy.visit('/');
+    cy.url().should('eq', `${Cypress.config('baseUrl')}/`);
     cy.get('header > a > img').should('be.visible');
     cy.contains('Forms').should('exist');
 

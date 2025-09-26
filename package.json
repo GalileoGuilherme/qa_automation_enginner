@@ -1,9 +1,18 @@
 {
   "devDependencies": {
     "cypress": "^15.3.0",
-    "cypress-plugin-api": "^2.11.2"
+    "cypress-multi-reporters": "^2.0.5",
+    "cypress-plugin-api": "^2.11.2",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.3.0"
   },
   "dependencies": {
     "@faker-js/faker": "^9.9.0"
+  },
+  "scripts": {
+    "test": "cypress run",
+    "report": "npx mochawesome-merge mochawesome-report/*.json > mochawesome.json && npx marge mochawesome.json",
+    "test:all": "cypress run && npx mochawesome-merge mochawesome-report/*.json > mochawesome.json && npx marge mochawesome.json"
   }
 }
