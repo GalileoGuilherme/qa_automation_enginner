@@ -33,7 +33,7 @@ Esse comando vai executar todos os specs, gerar os relatórios .json e logo em s
 
 - Para gerar apenas o relatório (se já houver testes executados):
 
- - npm run report
+    - npm run report
 
 
 Os relatórios ficam salvos na pasta `mochawesome-report/` e podem ser abertos em qualquer navegador. Exemplo: `mochawesome-report/mochawesome.html`.
