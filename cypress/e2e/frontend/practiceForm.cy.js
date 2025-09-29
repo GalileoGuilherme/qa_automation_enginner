@@ -113,4 +113,33 @@ describe('E2E Practice Form', () => {
     cy.closePracticeFormModal();
 
   });
+
+  it('Deve validar nova janela e mensagem "This is a sample page"', () => {
+    Cypress.on('uncaught:exception', () => false);
+
+    cy.visit('https://demoqa.com/');
+    cy.contains('Alerts, Frame & Windows').click();
+    cy.contains('Browser Windows').click();
+
+    // Intercepta e remove o 'target' para prevenir nova aba/janela
+    cy.get('#windowButton')
+      .invoke('removeAttr', 'onclick') // remove abertura por JS, caso exista
+      .invoke('removeAttr', 'target') // previne abrir nova aba
+
+    // Captura o click e navega manualmente
+    cy.window().then(win => {
+      cy.stub(win, 'open').callsFake((url) => {
+        cy.visit(url); // navega para o endereço na mesma aba
+      });
+    });
+
+    cy.get('#windowButton').click();
+
+    // Valida a mensagem na nova página
+    cy.contains('This is a sample page').should('be.visible');
+
+    // Retorna para a tela anterior: cypress não tem como padrão exercer anipulação em abas exterores.
+    cy.go('back');
+    cy.url().should('include', '/browser-windows');
+  });
 });
