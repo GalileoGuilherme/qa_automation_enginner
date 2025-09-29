@@ -184,3 +184,39 @@ Cypress.Commands.add('limparWebTable', () => {
     }
   });
 });
+
+Cypress.Commands.add('addWebTableRecord', (record) => {
+  cy.get('#addNewRecordButton').click();
+  cy.get('#firstName').type(record.firstName);
+  cy.get('#lastName').type(record.lastName);
+  cy.get('#userEmail').type(record.email);
+  cy.get('#age').type(record.age);
+  cy.get('#salary').type(record.salary);
+  cy.get('#department').type(record.department);
+  cy.get('#submit').click();
+});
+
+Cypress.Commands.add('editWebTableRecord', (email, novoDepartment) => {
+  cy.contains('div.rt-td', email)
+    .parent()
+    .find('[id^="edit-record-"]')
+    .click();
+
+  cy.get('#department')
+    .should('exist')
+    .and('not.be.disabled')
+    .clear()
+    .type(novoDepartment);
+
+  cy.get('#submit').click();
+  cy.contains('div.rt-td', email).parent().contains(novoDepartment);
+});
+
+Cypress.Commands.add('deleteWebTableRecord', (email) => {
+  cy.contains('div.rt-td', email)
+    .parent()
+    .find('[id^="delete-record-"]')
+    .click();
+
+  cy.get('.rt-tbody').should('not.contain', email);
+});
