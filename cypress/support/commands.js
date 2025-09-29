@@ -163,15 +163,24 @@ Cypress.Commands.add('closePracticeFormModal', () => {
   });
 });
 
+Cypress.Commands.add('limparWebTable', () => {
+  cy.get('select').select('50 rows');
 
+  // Tenta deletar registros, mas ignora se não houver 
+  cy.get('body').then(body => {
+    if (body.find('[title="Delete"]').length > 0) {
+      function deleteFirst() {
+        cy.get('[title="Delete"]').then($btns => {
+          if ($btns.length) {
+            cy.wrap($btns[0]).click();
+            cy.wait(300);
+            deleteFirst();
+          }
+        });
+      }
+      deleteFirst();
 
-
-
-
-
-
-
-
-
-
-
+      cy.get('[title="Delete"]').should('not.exist');
+    }
+  });
+});
