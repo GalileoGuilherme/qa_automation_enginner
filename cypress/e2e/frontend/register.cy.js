@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-describe('Web Tables - demoqa com limpeza', () => {
+describe('Web Tables - criação, edição e exclusão de registros', () => {
     beforeEach(() => {
         Cypress.on('uncaught:exception', () => false);
         cy.visit('https://demoqa.com/');
